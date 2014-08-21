@@ -1,0 +1,14 @@
+[
+  {
+    "Expected": "4vYcP3HR3v0/qZnfo2lTdVxpBol5mWK0i+vYNpdOjPk=\n", 
+    "Input": ""
+  }, 
+  {
+    "Expected": "Txbes62FO4jYWFsBgxmtYUVcGrqYp3pyuP0yTL8Od1o=\n", 
+    "Input": "YWJj\n"
+  }, 
+  {
+    "Expected": "T57P3fEjz6yAo3jzcAv88Q3/foP4nYjsE0aKgJrOh4g=\n", 
+    "Input": "3hiJQaM3XTqKBh5nV26Sbccaf6PwzOuXRStNMieWX56ozHUHbZ+5xUF6pcsw/CIZizSYLbting==\n"
+  }
+]

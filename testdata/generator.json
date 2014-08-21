@@ -1,0 +1,28 @@
+[
+  {
+    "Expected": [
+      {
+        "Expected": "rbNghp7pS08j6M9WSXYTg3fEhFaxXUuv6YFxBME43nVkC4BsUI4GDMHldWb+HN68vd2lI0XIhMKj\nCXbuUrHLpvq5Xpieig==\n", 
+        "Len": 70
+      }, 
+      {
+        "Expected": "g+YPGdW71vij9g==\n", 
+        "Len": 10
+      }
+    ], 
+    "Input": "AA==\n"
+  }, 
+  {
+    "Expected": [
+      {
+        "Expected": "gc36N87xYq7kKPRJx+X6LoCOL5DHUgkseXpNFmge8cB5FvkwQfgfbb8bUUkz4fMw8M5yv+2Uduo+\nqtUfmY3Wlp27l1qAjQ==\n", 
+        "Len": 70
+      }, 
+      {
+        "Expected": "allOR/DV0o/KZg==\n", 
+        "Len": 10
+      }
+    ], 
+    "Input": "AAECAwQFBgcI\n"
+  }
+]
