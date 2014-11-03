@@ -1,5 +1,5 @@
 Fortuna cryptographic random number generator implementation in Go
-------------------------------------------------------------------
+==================================================================
 
 Fortuna implements the fortuna cryptographic random number generator as designed
 by Bruce Schneier and Niels Ferguson and described in Cryptography Engineering,
@@ -19,7 +19,7 @@ implementation for testing purposes.
 
 
 References
-==========
+----------
 
 All the pages (p.) references are to
 [Cryptography Engineering](https://www.schneier.com/book-ce.html), N. Ferguson,
