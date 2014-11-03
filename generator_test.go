@@ -138,7 +138,7 @@ func loadGeneratorTestData(t *testing.T, name string) []generatorTestData {
 	if err != nil {
 		t.Fatal(err)
 	}
-	data := make([]generatorTestData, 0)
+	var data []generatorTestData
 	if err = json.Unmarshal(content, &data); err != nil {
 		t.Fatal(err)
 	}

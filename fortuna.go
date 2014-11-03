@@ -2,9 +2,9 @@
 // Use of this source code is governed under the Apache License, Version 2.0
 // that can be found in the LICENSE file.
 
-// Fortuna implements the fortuna random number generator as designed by Bruce
-// Schneier and Niels Ferguson and described in Cryptography Engineering, N.
-// Ferguson, B. Schneier, T. Kohno, ISBN 978-0-470-47424-2.
+// Package fortuna implements the fortuna random number generator as designed
+// by Bruce Schneier and Niels Ferguson and described in Cryptography
+// Engineering, N. Ferguson, B. Schneier, T. Kohno, ISBN 978-0-470-47424-2.
 //
 // Fortuna is best used in a long living server like a http server, where a lot
 // of unpredictable events occurs and can be used to seed the accumulator.
@@ -82,10 +82,10 @@ type accumulator struct {
 	temp       [numPools / 8 * sha256.Size]byte // Scratch space used in reseed to save a memory allocation.
 }
 
-// Read reads random data up to 1Mb, reseeding the accumulator if necessary.
-func (a *accumulator) Read(data []byte) (int, error) {
+func (a *accumulator) prepare() {
 	now := time.Now()
 	a.lock.Lock()
+	defer a.lock.Unlock()
 	if a.lastReseed.After(now) {
 		// Clock rewinded. Reset lastReseed so the reseed will occur as soon as
 		// possible.
@@ -96,8 +96,11 @@ func (a *accumulator) Read(data []byte) (int, error) {
 	if a.pools[0].length >= minPoolSize && now.After(a.lastReseed.Add(reseedInterval)) {
 		a.reseed(now)
 	}
-	a.lock.Unlock()
+}
 
+// Read reads random data up to 1Mb, reseeding the accumulator if necessary.
+func (a *accumulator) Read(data []byte) (int, error) {
+	a.prepare()
 	// Return PRNG data from the generator. The generator is thread-safe so no
 	// need to keep the accumulator lock.
 	return a.generator.Read(data)
@@ -127,7 +130,7 @@ func (a *accumulator) reseed(now time.Time) {
 
 	// Double SHA256 the key plus the seed. In practice, the sum is at least
 	// minPoolSize.
-	a.generator.Write(seed)
+	_, _ = a.generator.Write(seed)
 }
 
 func (a *accumulator) AddRandomEvent(source byte, data []byte) {
@@ -137,7 +140,7 @@ func (a *accumulator) AddRandomEvent(source byte, data []byte) {
 	var buffer []byte
 	if len(data) > 32 {
 		h := sha1.New()
-		h.Write(data)
+		_, _ = h.Write(data)
 		buffer = h.Sum(make([]byte, 2, 2+h.Size()))
 	} else {
 		buffer = append(make([]byte, 2, len(data)+2), data...)
@@ -149,7 +152,7 @@ func (a *accumulator) AddRandomEvent(source byte, data []byte) {
 		a.lock.Lock()
 		defer a.lock.Unlock()
 
-		a.pools[a.nextPool].Write(buffer)
+		_, _ = a.pools[a.nextPool].Write(buffer)
 		a.nextPool = (a.nextPool + 1) % numPools
 	}()
 }
@@ -197,6 +200,8 @@ func NewFortuna(seed []byte) (Fortuna, error) {
 	// It's now safe to reseed the generator. This adds a very minimalist amount
 	// of non-determinism in the accumulator. This is not sufficient for a
 	// crypto-level RNG.
+	a.lock.Lock()
+	defer a.lock.Unlock()
 	a.reseed(time.Now())
 	return a, nil
 }

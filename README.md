@@ -13,6 +13,10 @@ implementation uses SHA-256 and AES-256 as the primitives.
 This package includes all the necessary implementation and a python generator
 implementation for testing purposes.
 
+[![GoDoc](https://godoc.org/github.com/maruel/fortuna?status.svg)](https://godoc.org/github.com/maruel/fortuna)
+[![Build Status](https://travis-ci.org/maruel/fortuna.svg?branch=master)](https://travis-ci.org/maruel/fortuna)
+[![Coverage Status](https://img.shields.io/coveralls/maruel/fortuna.svg)](https://coveralls.io/r/maruel/fortuna?branch=master)
+
 
 References
 ==========

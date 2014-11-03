@@ -23,7 +23,7 @@ func loadSHA256dTestData(t *testing.T, name string) []sha256dTestData {
 	if err != nil {
 		t.Fatal(err)
 	}
-	data := make([]sha256dTestData, 0)
+	var data []sha256dTestData
 	if err = json.Unmarshal(content, &data); err != nil {
 		t.Fatal(err)
 	}

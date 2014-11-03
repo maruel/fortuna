@@ -10,7 +10,7 @@ type counter []byte
 // incr adds 1 to c by treating it as a little endian big int.
 func (c counter) incr() {
 	for i := range c {
-		c[i] += 1
+		c[i]++
 		if c[i] != 0 {
 			return
 		}

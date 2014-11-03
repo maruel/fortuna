@@ -68,7 +68,7 @@ func newGenerator(h hash.Hash, seed []byte) generator {
 		h:                  h,
 	}
 	if len(seed) != 0 {
-		g.Write(seed)
+		_, _ = g.Write(seed)
 	}
 	return g
 }
