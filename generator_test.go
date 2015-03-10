@@ -73,7 +73,7 @@ func compress(t *testing.T, d []byte) int {
 	} else if i != len(d) {
 		t.Fatal("Unexpected len")
 	}
-	f.Flush()
+	_ = f.Flush()
 	return buf.Len()
 }
 
@@ -165,7 +165,7 @@ func TestGeneratorDeterminism(t *testing.T) {
 		// properly overwritten.
 		{
 			g2 := NewGenerator(nil, nil)
-			g2.Write(v.Input)
+			_, _ = g2.Write(v.Input)
 			for j, e := range v.Expected {
 				d := make([]byte, e.Len)
 				read(t, g2, d, e.Len)
@@ -309,6 +309,6 @@ func BenchmarkGeneratorReseed(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		g.Write(data)
+		_, _ = g.Write(data)
 	}
 }
